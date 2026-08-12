@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="om">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sign In - Dani Abbaa Carraa Online</title>
+
+<!-- Font Awesome Icons CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    linear-gradient(
+    rgba(0,0,0,0.6),
+    rgba(0,0,0,0.6)
+    ),
+    url("1.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:white;
+    padding-bottom: 70px; /* Space for fixed bottom menu */
+}
+
+.login-box{
+    width:350px;
+    padding:30px;
+    background:rgba(0,0,0,0.65);
+    border-radius:15px;
+    text-align:center;
+    margin: 20px 0;
+}
+
+h2{
+    color:#00ffcc;
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin:10px 0;
+    border:none;
+    outline:none;
+    border-radius:25px;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    margin-top:15px;
+    border:none;
+    border-radius:25px;
+    background:#00ffcc;
+    color:black;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:white;
+}
+
+.forget{
+    background:none;
+    color:#00ffcc;
+}
+
+a{
+    display:block;
+    margin-top:15px;
+    color:#00ffcc;
+    text-decoration:none;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 255, 204, 0.3);
+    z-index: 1000;
+}
+
+.bottom-nav a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    gap: 4px;
+    transition: 0.3s;
+}
+
+.bottom-nav a i {
+    font-size: 20px;
+}
+
+.bottom-nav a:hover,
+.bottom-nav a.active {
+    color: #00ffcc;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="login-box">
+
+<h2>
+🔐 Sign In
+</h2>
+
+<form onsubmit="return login()">
+
+<input
+type="tel"
+id="phone"
+placeholder="Phone Number"
+required>
+
+<input
+type="password"
+id="password"
+placeholder="Password"
+maxlength="6"
+required>
+
+<button type="submit">
+Sign In
+</button>
+
+</form>
+
+<button 
+class="forget"
+onclick="forgetPassword()">
+🔑 Forget Password?
+</button>
+
+<a href="signup.html">
+Sign Up
+</a>
+
+</div>
+
+<!-- BOTTOM NAVIGATION MENU WITH ICONS -->
+<nav class="bottom-nav">
+    <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="about.html">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>About</span>
+    </a>
+    <a href="blog.html">
+        <i class="fa-solid fa-newspaper"></i>
+        <span>Blog</span>
+    </a>
+    <a href="service.html">
+        <i class="fa-solid fa-concierge-bell"></i>
+        <span>Service</span>
+    </a>
+    <a href="dashboard.html">
+        <i class="fa-solid fa-user"></i>
+        <span>me</span>
+    </a>
+</nav>
+
+<script>
+
+function login(){
+
+let phone =
+document.getElementById("phone")
+.value
+.trim();
+
+let password =
+document.getElementById("password")
+.value;
+
+// Get users database
+let users =
+JSON.parse(
+localStorage.getItem("users")
+)
+||
+{};
+
+if(!users[phone]){
+
+alert(
+"Account hin argamne!"
+);
+
+return false;
+
+}
+
+if(
+users[phone].password !== password
+){
+
+alert(
+"Password sirrii miti!"
+);
+
+return false;
+
+}
+
+// Save current user
+localStorage.setItem(
+"currentUser",
+phone
+);
+
+alert(
+"Login successful!"
+);
+
+window.location.href =
+"dashboard.html";
+
+return false;
+
+}
+
+function forgetPassword(){
+
+window.location.href =
+"forget.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

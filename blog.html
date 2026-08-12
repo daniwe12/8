@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{ margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+        body{
+            min-height:100vh;
+            background: linear-gradient(rgba(0,0,0,.65), rgba(0,0,0,.65)), url("pp.png");
+            background-size:cover;
+            background-position:center;
+            background-attachment:fixed;
+            padding-bottom: 80px;
+            color: #333;
+        }
+        .container{ width:95%; max-width:1000px; margin:auto; padding:15px; }
+        .card{ background:white; border-radius:15px; padding:20px; margin-bottom:15px; box-shadow:0 4px 15px #0003; }
+        
+        h1, h2, h3 { color: #128c7e; margin-bottom: 10px; }
+        p { margin-bottom: 10px; line-height: 1.6; font-size: 14px; }
+
+        /* PROFILE VERIFIED SECTION */
+        .profiles-grid { display: flex; gap: 15px; overflow-x: auto; padding: 10px 0; }
+        .profile-card {
+            background: #f9f9f9; border-radius: 12px; padding: 15px; text-align: center;
+            min-width: 140px; flex: 1; border: 1px solid #eee; position: relative;
+        }
+        .profile-img {
+            width: 65px; height: 65px; border-radius: 50%; object-fit: cover;
+            border: 3px solid #128c7e; margin: 0 auto 8px; display: block;
+        }
+        .badge-check {
+            color: #1da1f2; font-size: 14px; margin-left: 3px;
+        }
+        .profile-name { font-weight: bold; font-size: 13px; margin-bottom: 2px; }
+        .profile-role { font-size: 11px; color: #777; }
+
+        /* CERTIFICATES */
+        .certificates { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+        .cert { background: #e0f2f1; padding: 8px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; color: #128c7e; border: 1px solid #128c7e; display: flex; align-items: center; gap: 5px; }
+
+        /* SHIPPING SECTION */
+        .shipping-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 10px; }
+        .shipping-item { background: #f0fdf4; border: 1px dashed #128c7e; padding: 12px; border-radius: 10px; text-align: center; font-size: 12px; }
+        .shipping-icon { font-size: 24px; margin-bottom: 5px; display: block; }
+
+        /* BUTTONS */
+        .btn-action { background: #128c7e; color: white; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; font-size: 12px; margin-top: 8px; transition: 0.3s; }
+        .btn-action:hover { background: #0b5e54; }
+
+        /* BOTTOM NAVIGATION BAR */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 10px 0; border-top: 1px solid rgba(0, 255, 204, 0.3); z-index: 1000;
+        }
+        .bottom-nav a { color: white; text-decoration: none; display: flex; flex-direction: column; align-items: center; font-size: 12px; gap: 4px; }
+        .bottom-nav a i { font-size: 20px; }
+        .bottom-nav a.active { color: #00ffcc; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER CARD -->
+    <div class="card">
+        <h1 style="text-align:center;">🚀 Dani Abbaa Carraa</h1>
+        <p style="text-align:center;">Oduuwwan, ergaa fi qulqullina tajaajila keenyaa hordofaa.</p>
+    </div>
+
+    <!-- VERIFIED USERS SECTION -->
+    <div class="card">
+        <h2>✅ Verified Account Profiles</h2>
+        <p>Namoota mirkaneeffaman fi milkaa'ina agarsiisan sadii:</p>
+        
+        <div class="profiles-grid">
+            <!-- Profile 1 (Your Image) -->
+            <div class="profile-card">
+                <img src="2.jpg" alt="Dani" class="profile-img">
+                <div class="profile-name">Dani A. <i class="fa-solid fa-circle-check badge-check"></i></div>
+                <div class="profile-role">Founder / Admin</div>
+            </div>
+
+            <!-- Profile 2 -->
+            <div class="profile-card">
+                <img src="z.jpg" alt="User 2" class="profile-img">
+                <div class="profile-name">Sara M. <i class="fa-solid fa-circle-check badge-check"></i></div>
+                <div class="profile-role">Top Winner 🏆</div>
+            </div>
+
+            <!-- Profile 3 -->
+            <div class="profile-card">
+                <img src="z.png" alt="User 3" class="profile-img">
+                <div class="profile-name">Dawit T. <i class="fa-solid fa-circle-check badge-check"></i></div>
+                <div class="profile-role">Verified Investor</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CERTIFICATES & TRUST -->
+    <div class="card">
+        <h2>🏅 Certifications & Security</h2>
+        <p>Tajaajila keenya seeraan kan mirkanaa'e fi amansiisaa dha:</p>
+        <div class="certificates">
+            <div class="cert"><i class="fa-solid fa-shield-halved"></i> SSL Secured</div>
+            <div class="cert"><i class="fa-solid fa-award"></i> Government Licensed</div>
+            <div class="cert"><i class="fa-solid fa-file-contract"></i> Audited 2026</div>
+            <div class="cert"><i class="fa-solid fa-building-columns"></i> Bank Partner</div>
+            <div class="cert"><i class="fa-solid fa-leaf"></i> Eco Certified</div>
+        </div>
+    </div>
+
+    <!-- SHIPPING & LOGISTICS SECTION -->
+    <div class="card">
+        <h2>🚚 Shipping & Delivery Options</h2>
+        <p>Meeshaalee fi carraawwan keessan haala saffisaa fi amansiisaa ta'een isin dhaqqabsiisna:</p>
+
+        <div class="shipping-grid">
+            <div class="shipping-item">
+                <span class="shipping-icon">✈️</span>
+                <strong>Air Freight</strong>
+                <p>Express 24-48 Hours</p>
+            </div>
+            <div class="shipping-item">
+                <span class="shipping-icon">🚚</span>
+                <strong>Express Truck</strong>
+                <p>Local Safe Shipping</p>
+            </div>
+            <div class="shipping-item">
+                <span class="shipping-icon">📦</span>
+                <strong>Standard Parcel</strong>
+                <p>Door to Door Service</p>
+            </div>
+            <div class="shipping-item">
+                <span class="shipping-icon">⚡</span>
+                <strong>Instant Digital</strong>
+                <p>Immediate Payout</p>
+            </div>
+        </div>
+        <button class="btn-action" onclick="trackOrder()">Track Your Order 📍</button>
+    </div>
+
+    <!-- BUSINESS DEVELOPMENT & PRE-MARKET -->
+    <div class="card">
+        <h2>🌐 Pre-Market & Business Development</h2>
+        <p><strong>🌱 Natural Resources:</strong> Misooma qabeenya uumamaa fi guddina daldalaa irratti xiyyeeffachuun hojjechaa jirra.</p>
+        <p><strong>📈 Pre-Market:</strong> Carraawwan gabaa duraa kan badhaasa guddaa 20,000 ETB hanga 120M+ Payouts dhiheessan.</p>
+    </div>
+
+</div>
+
+<!-- BOTTOM NAVIGATION -->
+<nav class="bottom-nav">
+    <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="about.html">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>About</span>
+    </a>
+    <a href="blog.html" class="active">
+        <i class="fa-solid fa-newspaper"></i>
+        <span>Blog</span>
+    </a>
+    <a href="service.html">
+        <i class="fa-solid fa-concierge-bell"></i>
+        <span>Service</span>
+    </a>
+    <a href="dashboard.html">
+        <i class="fa-solid fa-user"></i>
+        <span>Me</span>
+    </a>
+</nav>
+
+<!-- JAVASCRIPT -->
+<script>
+    console.log("Blog Page Loaded with Image z.png & Verified Profiles");
+
+    function trackOrder() {
+        alert("📍 Tracking System: Ergaan keessan imala irratti argama!");
+    }
+
+    // Interactive Hover Effects for Cards
+    document.querySelectorAll('.card').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            item.style.transform = 'translateY(-3px)';
+            item.style.transition = '0.3s ease';
+        });
+        item.addEventListener('mouseleave', () => {
+            item.style.transform = 'translateY(0)';
+        });
+    });
+</script>
+
+</body>
+</html>

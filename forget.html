@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="om">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forget Password</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *{ margin:0; padding:0; box-sizing:border-box; font-family:Arial,sans-serif; }
+        
+        body {
+            min-height: 100vh;
+            background-color: #0d1117;
+            background-image: 
+                radial-gradient(at 40% 20%, rgba(0, 255, 204, 0.15) 0px, transparent 50%),
+                radial-gradient(at 80% 0%, rgba(18, 140, 126, 0.2) 0px, transparent 50%),
+                radial-gradient(at 0% 50%, rgba(0, 255, 204, 0.1) 0px, transparent 50%),
+                radial-gradient(at 80% 50%, rgba(32, 58, 67, 0.4) 0px, transparent 50%),
+                radial-gradient(at 0% 100%, rgba(0, 255, 204, 0.15) 0px, transparent 50%);
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            padding-bottom: 80px;
+        }
+
+        .header { text-align: center; margin-bottom: 25px; padding: 0 20px; }
+        .logo { font-size: 28px; font-weight: bold; color: #00ffcc; text-shadow: 0 4px 12px rgba(0,255,204,0.4); }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 255, 204, 0.25);
+            padding: 30px 25px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 380px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        .icon-lock { font-size: 45px; color: #00ffcc; margin-bottom: 15px; }
+        .card h2 { font-size: 20px; margin-bottom: 8px; color: #ffffff; }
+        .card p { font-size: 13px; color: #ccc; margin-bottom: 20px; line-height: 1.5; }
+
+        .form-input {
+            width: 100%;
+            padding: 14px 15px;
+            border-radius: 25px;
+            border: 1px solid rgba(0, 255, 204, 0.3);
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .form-input:focus {
+            border-color: #00ffcc;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.3);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border-radius: 25px;
+            border: none;
+            background: #00ffcc;
+            color: #0d1117;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn:hover { background: white; transform: translateY(-2px); }
+        .status-box { margin-top: 15px; font-size: 13px; color: #ff9800; line-height: 1.5; }
+
+        /* NEW PASSWORD SECTION (HIDDEN BY DEFAULT) */
+        #newPasswordSection {
+            display: none;
+        }
+
+        /* BOTTOM NAVIGATION BAR */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: rgba(13, 17, 23, 0.95);
+            display: flex; justify-content: space-around; align-items: center;
+            padding: 10px 0; border-top: 1px solid rgba(0, 255, 204, 0.2); z-index: 1000;
+        }
+        .bottom-nav a {
+            color: #8b9290; text-decoration: none; display: flex; flex-direction: column;
+            align-items: center; font-size: 12px; gap: 4px; transition: 0.3s;
+        }
+        .bottom-nav a i { font-size: 20px; }
+        .bottom-nav a:hover, .bottom-nav a.active { color: #00ffcc; }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <div class="logo">Dani Abbaa Carraa 🎁</div>
+    </header>
+
+    <div class="card">
+        <!-- STEP 1: REQUEST ADMIN APPROVAL -->
+        <div id="requestSection">
+            <i class="fa-solid fa-user-shield icon-lock"></i>
+            <h2>Reset Request</h2>
+            <p>Email ykn Lakkoofsa Bilbilaa kee galchi, Admin mirkaneessu (Confirm) eegi.</p>
+
+            <div id="requestForm">
+                <input type="text" id="userInput" class="form-input" placeholder="Email ykn Lakkoofsa Bilbilaa" required>
+                <button onclick="sendAdminRequest()" class="btn">Gaaffii Admin-itti Ergii</button>
+            </div>
+
+            <div id="statusMessage" class="status-box"></div>
+        </div>
+
+        <!-- STEP 2: SET NEW PASSWORD (SHOWS AFTER ADMIN CONFIRMS) -->
+        <div id="newPasswordSection">
+            <i class="fa-solid fa-key icon-lock"></i>
+            <h2>🔑 Password Haaraa Galchi</h2>
+            <p style="color: #2ea44f;">Admin gaaffii keessan mirkaneesseera!</p>
+
+            <form onsubmit="saveNewPassword(event)">
+                <input type="password" id="newPass" class="form-input" placeholder="Password Haaraa" required>
+                <input type="password" id="confirmPass" class="form-input" placeholder="Password Irra Deebi'i" required>
+                <button type="submit" class="btn">Olkaa'i & Sign In</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+        <a href="about.html"><i class="fa-solid fa-circle-info"></i><span>About</span></a>
+        <a href="blog.html"><i class="fa-solid fa-newspaper"></i><span>Blog</span></a>
+        <a href="service.html"><i class="fa-solid fa-concierge-bell"></i><span>Service</span></a>
+        <a href="dashboard.html"><i class="fa-solid fa-user"></i><span>Me</span></a>
+    </nav>
+
+    <script>
+        let checkInterval;
+
+        function sendAdminRequest() {
+            const inputVal = document.getElementById('userInput').value;
+            if(!inputVal) { alert("Maaloo Email/Phone galchaa!"); return; }
+
+            const resetRequest = {
+                user: inputVal,
+                status: "pending",
+                time: new Date().toLocaleTimeString()
+            };
+
+            localStorage.setItem("reset_request_" + inputVal, JSON.stringify(resetRequest));
+            localStorage.setItem("latest_user_request", inputVal);
+
+            document.getElementById('requestForm').style.display = 'none';
+            document.getElementById('statusMessage').innerHTML = "⏳ Gaaffiin keessan Admin-itti ergameera. Admin hanga Mirkaneessutti (Confirm) eegaa...";
+
+            // Check every 2 seconds if Admin approved
+            checkInterval = setInterval(() => {
+                const req = JSON.parse(localStorage.getItem("reset_request_" + inputVal));
+                if (req && req.status === "approved") {
+                    clearInterval(checkInterval);
+                    // Hide Step 1 and Show Step 2
+                    document.getElementById('requestSection').style.display = 'none';
+                    document.getElementById('newPasswordSection').style.display = 'block';
+                }
+            }, 2000);
+        }
+
+        function saveNewPassword(event) {
+            event.preventDefault();
+            const pass = document.getElementById('newPass').value;
+            const confirmPass = document.getElementById('confirmPass').value;
+
+            if (pass !== confirmPass) {
+                alert("⚠️ Password-iin walin simu, irra deebi'ii yaali!");
+                return;
+            }
+
+            alert("🎉 Password keessan milkaa'inaan jijjiirameera!");
+            window.location.href = "signin.html";
+        }
+    </script>
+</body>
+</html>

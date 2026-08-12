@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="om">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sign Up - Dani Abbaa Carraa Online</title>
+
+<!-- Font Awesome Icons CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    linear-gradient(
+        rgba(0,0,0,.6),
+        rgba(0,0,0,.6)
+    ),
+    url("1.jpg");
+
+    background-size:cover;
+    background-position:center;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding-bottom: 70px; /* Space for fixed bottom menu */
+}
+
+.signup-box{
+    width:350px;
+    background:rgba(0,0,0,.65);
+    padding:30px;
+    border-radius:15px;
+    color:white;
+    text-align:center;
+    margin: 20px 0;
+}
+
+h2{
+    color:#00ffcc;
+    margin-bottom:20px;
+}
+
+input{
+    width:100%;
+    padding:13px;
+    margin:8px 0;
+    border:none;
+    border-radius:25px;
+    outline:none;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    margin-top:15px;
+    border:none;
+    border-radius:25px;
+    background:#00ffcc;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:white;
+}
+
+a{
+    display:block;
+    margin-top:15px;
+    color:#00ffcc;
+    text-decoration:none;
+}
+
+.message{
+    margin-top:15px;
+    padding:10px;
+    border-radius:8px;
+}
+
+.error{
+    background:#ffdddd;
+    color:red;
+}
+
+.success{
+    background:#ddffdd;
+    color:green;
+}
+
+/* Bottom Navigation Bar */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 255, 204, 0.3);
+    z-index: 1000;
+}
+
+.bottom-nav a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    gap: 4px;
+    transition: 0.3s;
+}
+
+.bottom-nav a i {
+    font-size: 20px;
+}
+
+.bottom-nav a:hover,
+.bottom-nav a.active {
+    color: #00ffcc;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div class="signup-box">
+
+<h2>
+📝 Create Account
+</h2>
+
+<input
+id="username"
+type="text"
+placeholder="Username"
+autocomplete="username">
+
+<input
+id="phone"
+type="tel"
+placeholder="Phone Number (10 digit)"
+maxlength="10"
+inputmode="numeric"
+autocomplete="tel">
+
+<input
+id="password"
+type="password"
+placeholder="Password (6 digit)"
+maxlength="6"
+inputmode="numeric"
+autocomplete="new-password">
+
+<input
+id="confirmPassword"
+type="password"
+placeholder="Confirm Password"
+maxlength="6"
+inputmode="numeric"
+autocomplete="new-password">
+
+<button
+type="button"
+id="signupButton"
+onclick="register()">
+Sign Up
+</button>
+
+<div id="message"></div>
+
+<a href="signin.html">
+Already have account? Sign In
+</a>
+
+</div>
+
+<!-- BOTTOM NAVIGATION MENU WITH ICONS -->
+<nav class="bottom-nav">
+    <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="about.html">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>About</span>
+    </a>
+    <a href="blog.html">
+        <i class="fa-solid fa-newspaper"></i>
+        <span>Blog</span>
+    </a>
+    <a href="service.html">
+        <i class="fa-solid fa-concierge-bell"></i>
+        <span>Service</span>
+    </a>
+    <a href="dashboard.html">
+       <i class="fa-solid fa-user"></i>
+        <span>me</span>
+    </a>
+</nav>
+
+<script>
+
+function register(){
+
+    const username =
+        document
+        .getElementById("username")
+        .value
+        .trim();
+
+    const phone =
+        document
+        .getElementById("phone")
+        .value
+        .trim();
+
+    const password =
+        document
+        .getElementById("password")
+        .value;
+
+    const confirmPassword =
+        document
+        .getElementById("confirmPassword")
+        .value;
+
+    const message =
+        document.getElementById("message");
+
+    const button =
+        document.getElementById("signupButton");
+
+
+    message.innerHTML = "";
+
+
+    /* EMPTY CHECK */
+
+    if(
+        username === "" ||
+        phone === "" ||
+        password === "" ||
+        confirmPassword === ""
+    ){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Odeeffannoo hunda guuti.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* USERNAME */
+
+    if(username.length < 3){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Username yoo xiqqaate characters 3 qabaachuu qaba.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* PHONE - EXACTLY 10 DIGITS */
+
+    if(!/^[0-9]{10}$/.test(phone)){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Phone number digit 10 qabaachuu qaba.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* PASSWORD - EXACTLY 6 DIGITS */
+
+    if(!/^[0-9]{6}$/.test(password)){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Password digit 6 qabaachuu qaba.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* CONFIRM PASSWORD */
+
+    if(password !== confirmPassword){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Password wal hin fakkaatu.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* LOAD USERS SAFELY */
+
+    let users = {};
+
+    try{
+
+        const savedUsers =
+            localStorage.getItem("users");
+
+        if(savedUsers){
+
+            users =
+                JSON.parse(savedUsers);
+
+        }
+
+        if(
+            !users ||
+            typeof users !== "object" ||
+            Array.isArray(users)
+        ){
+
+            users = {};
+
+        }
+
+    }
+    catch(error){
+
+        users = {};
+
+    }
+
+
+    /* PHONE EXISTS */
+
+    if(
+        Object.prototype.hasOwnProperty.call(
+            users,
+            phone
+        )
+    ){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Phone number kun duraan fayyadameera.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* USERNAME EXISTS */
+
+    const exists =
+        Object.values(users).some(
+            function(user){
+
+                return(
+                    user &&
+                    user.username &&
+                    user.username
+                    .toLowerCase()
+                    ===
+                    username.toLowerCase()
+                );
+
+            }
+        );
+
+
+    if(exists){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Username kun duraan jira.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* SAVE USER */
+
+    users[phone] = {
+
+        username: username,
+
+        phone: phone,
+
+        password: password,
+
+        createdAt:
+            new Date().toLocaleString()
+
+    };
+
+
+    /* SAVE DATABASE */
+
+    try{
+
+        localStorage.setItem(
+            "users",
+            JSON.stringify(users)
+        );
+
+    }
+    catch(error){
+
+        message.innerHTML = `
+            <div class="message error">
+                ❌ Account save gochuu hin dandeenye.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    /* SUCCESS */
+
+    message.innerHTML = `
+        <div class="message success">
+
+            ✅ Account uumameera!
+
+            <br><br>
+
+            👤 Username:
+            <strong>${username}</strong>
+
+            <br>
+
+            📱 Phone:
+            <strong>${phone}</strong>
+
+            <br><br>
+
+            Gara Sign In deemaa...
+
+        </div>
+    `;
+
+
+    /* DISABLE BUTTON */
+
+    button.disabled = true;
+
+    button.style.opacity = "0.6";
+
+    button.innerText = "Account Created ✓";
+
+
+    /* GO TO SIGN IN */
+
+    setTimeout(function(){
+
+        window.location.href =
+            "signin.html";
+
+    },1000);
+
+}
+
+</script>
+
+
+</body>
+
+</html>

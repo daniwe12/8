@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="om">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<!-- Font Awesome Icons CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    min-height:100vh;
+    background:
+    linear-gradient(
+        rgba(0,0,0,.55),
+        rgba(0,0,0,.55)
+    ),
+    url("pp.png");
+    background-size:cover;
+    background-position:center;
+    background-attachment:fixed;
+    padding-bottom: 75px; /* Space for fixed bottom menu */
+}
+
+.container{
+    width:95%;
+    max-width:1000px;
+    margin:auto;
+    padding:15px;
+}
+
+.card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 4px 15px #0003;
+}
+
+.hidden{
+    display:none !important;
+}
+
+/* USER */
+.user{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.avatar{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background:#128c7e;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:25px;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+}
+
+.price{
+    margin-top:10px;
+    font-size:20px;
+    font-weight:bold;
+    color:#128c7e;
+}
+
+.price a{
+    color:#128c7e;
+    text-decoration:none;
+}
+
+/* TICKET */
+.ticket-grid{
+    display:grid;
+    grid-template-columns:repeat(10,1fr);
+    gap:6px;
+    margin-top:15px;
+}
+
+.ticket{
+    width:100%;
+    height:55px;
+    border:none;
+    border-radius:8px;
+    background:#00c853;
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    overflow:hidden;
+    transition:.15s;
+}
+
+.ticket:hover{
+    transform:scale(1.03);
+}
+
+.ticket.selected{
+    background:#1877f2;
+}
+
+.ticket.locked{
+    background:#777;
+    cursor:not-allowed;
+    font-size:10px;
+}
+
+.ticket.pending{
+    background:#ffc107;
+    color:#222;
+    cursor:not-allowed;
+}
+
+.ticket small{
+    display:block;
+    font-size:8px;
+}
+
+/* GENERAL BUTTON */
+button{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    background:#128c7e;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    transition:.2s;
+}
+
+button:hover{
+    background:#075e54;
+}
+
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+}
+
+/* PAYMENT BUTTONS */
+.payment-buttons{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:15px;
+}
+
+.payment-buttons button{
+    margin-top:0;
+}
+
+/* PAYMENT INFO */
+.account{
+    font-size:25px;
+    font-weight:bold;
+    text-align:center;
+    margin:15px 0;
+    color:#128c7e;
+}
+
+/* MESSAGE */
+.message{
+    padding:15px;
+    border-radius:10px;
+    margin-top:10px;
+}
+
+.success{
+    background:#d4edda;
+}
+
+.pending-msg{
+    background:#fff3cd;
+}
+
+.error-msg{
+    background:#f8d7da;
+    color:#842029;
+}
+
+/* FILE */
+.file-area{
+    margin-top:15px;
+}
+
+.file-label{
+    display:block;
+    background:#1877f2;
+    color:white;
+    text-align:center;
+    padding:13px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.file-label:hover{
+    background:#0d65d9;
+}
+
+#screenshot{
+    display:none;
+}
+
+#fileName{
+    margin-top:10px;
+    text-align:center;
+    font-size:14px;
+}
+
+.preview{
+    width:100%;
+    max-height:350px;
+    object-fit:contain;
+    margin-top:15px;
+    border-radius:10px;
+    border:1px solid #ddd;
+}
+
+/* BOTTOM NAVIGATION BAR */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    border-top: 1px solid rgba(0, 255, 204, 0.3);
+    z-index: 1000;
+}
+
+.bottom-nav a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    gap: 4px;
+    transition: 0.3s;
+}
+
+.bottom-nav a i {
+    font-size: 20px;
+}
+
+.bottom-nav a:hover,
+.bottom-nav a.active {
+    color: #00ffcc;
+}
+
+/* MOBILE */
+@media(max-width:700px){
+    .container{
+        width:96%;
+    }
+
+    .ticket-grid{
+        grid-template-columns:repeat(5,1fr);
+    }
+
+    .ticket{
+        height:50px;
+        font-size:12px;
+    }
+
+    .ticket.locked{
+        font-size:8px;
+    }
+}
+
+@media(max-width:380px){
+    .ticket-grid{
+        grid-template-columns:repeat(4,1fr);
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- USER INFO -->
+<div class="card">
+    <div class="user">
+        <div class="avatar">
+            👤
+        </div>
+        <div>
+            <h3 id="username">
+                User
+            </h3>
+            <p id="phone"></p>
+        </div>
+    </div>
+</div>
+
+<!-- TITLE -->
+<div class="card title">
+    <h2>
+        🎟️ Welcome to Dani Abbaa Carraa Online
+    </h2>
+    <p style="margin-top:8px;">
+        Ticket tokko = 100 Birr
+    </p>
+    <div class="price">
+    🏆 1ffaa: 20 000 ETB
+    </div>
+</div>
+
+<!-- TICKET AREA -->
+<div class="card">
+    <h2>
+        🔢 Ticket 1 - 500
+    </h2>
+    <p style="margin-top:8px;">
+        🟢 Available &nbsp;
+        🔵 Selected &nbsp;
+        🟡 Pending &nbsp;
+        🔒 Locked
+    </p>
+    <div id="ticketGrid" class="ticket-grid"></div>
+</div>
+
+<!-- SELECTED TICKET -->
+<div class="card">
+    <h2>
+        🎫 Ticket Filatame
+    </h2>
+    <div id="selectedInfo" class="message">
+        Ticket hin filatamne.
+    </div>
+    <button type="button" onclick="openPayment()">
+        Continue ➜
+    </button>
+</div>
+
+<!-- PAYMENT -->
+<div id="paymentBox" class="card hidden">
+    <h2>
+        💳 Payment
+    </h2>
+    <p style="margin-top:12px;">
+        🎫 Ticket:
+        <strong id="paymentTicket"></strong>
+        <br><br>
+        💰 Amount:
+        <strong>50 Birr</strong>
+    </p>
+
+    <!-- PAYMENT METHOD -->
+    <div class="payment-buttons">
+        <button type="button" onclick="choosePayment('Telebirr')">
+            📱 Telebirr
+        </button>
+        <button type="button" onclick="choosePayment('CBE')">
+            🏦 CBE
+        </button>
+    </div>
+
+    <!-- PAYMENT INFO -->
+    <div id="paymentInfo" class="hidden" style="margin-top:15px;">
+        <div class="message pending-msg">
+            <h3 id="paymentMethod"></h3>
+            <div id="accountNumber" class="account"></div>
+
+            <button type="button" onclick="copyAccount()" style="background:#1877f2; width:180px; margin:auto; display:block;">
+                📋 Copy Account
+            </button>
+
+            <p style="text-align:center; margin-top:10px;">
+                👤 Laloo
+            </p>
+        </div>
+
+        <!-- SCREENSHOT -->
+        <h3 style="margin-top:20px;">
+            📸 Transaction Screenshot
+        </h3>
+
+        <div class="file-area">
+            <label for="screenshot" class="file-label">
+                📁 Screenshot Filadhu
+            </label>
+            <input type="file" id="screenshot" accept="image/*">
+            <p id="fileName"></p>
+        </div>
+
+        <img id="preview" class="preview hidden" alt="Screenshot preview">
+
+        <!-- SUBMIT -->
+        <button id="submitPaymentBtn" type="button" onclick="submitPayment(event)" style="margin-top:15px;">
+            📤 Submit Payment
+        </button>
+
+        <div id="paymentMessage"></div>
+    </div>
+</div>
+
+<!-- MY TICKETS -->
+<div class="card">
+    <h2>
+        📋 Carraa Koo
+    </h2>
+    <div id="myTickets">
+        Carraan ati filatte hin jiru.
+    </div>
+</div>
+
+<!-- LOGOUT -->
+<button type="button" onclick="logout()" style="background:#d93025;">
+    🚪 Logout
+</button>
+
+</div>
+
+<!-- BOTTOM NAVIGATION MENU WITH ICONS -->
+<nav class="bottom-nav">
+    <a href="index.html">
+        <i class="fa-solid fa-house"></i>
+        <span>Home</span>
+    </a>
+    <a href="about.html">
+        <i class="fa-solid fa-circle-info"></i>
+        <span>About</span>
+    </a>
+    <a href="blog.html">
+        <i class="fa-solid fa-newspaper"></i>
+        <span>Blog</span>
+    </a>
+    <a href="service.html">
+        <i class="fa-solid fa-concierge-bell"></i>
+        <span>Service</span>
+    </a>
+    <a href="dashboard.html" class="active">
+        <i class="fa-solid fa-user"></i>
+        <span>Me</span>
+    </a>
+</nav>
+
+<script>
+
+/* =========================================
+   CURRENT USER & DATABASE
+========================================= */
+let currentUser = localStorage.getItem("currentUser");
+let users = JSON.parse(localStorage.getItem("users")) || {};
+let tickets = JSON.parse(localStorage.getItem("tickets")) || {};
+let payments = JSON.parse(localStorage.getItem("payments")) || {};
+
+let selectedTicket = null;
+let paymentMethod = "";
+
+/* =========================================
+   IMAGE COMPRESSOR FUNCTION
+========================================= */
+function compressImage(file, maxWidth, maxHeight, quality, callback) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+            const canvas = document.createElement('canvas');
+            let width = img.width;
+            let height = img.height;
+
+            if (width > height) {
+                if (width > maxWidth) {
+                    height = Math.round((height * maxWidth) / width);
+                    width = maxWidth;
+                }
+            } else {
+                if (height > maxHeight) {
+                    width = Math.round((width * maxHeight) / height);
+                    height = maxHeight;
+                }
+            }
+
+            canvas.width = width;
+            canvas.height = height;
+
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, width, height);
+
+            const compressedDataUrl = canvas.toDataURL('image/jpeg', quality);
+            callback(compressedDataUrl);
+        };
+        img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+}
+
+/* =========================================
+   MASK PHONE
+========================================= */
+function maskPhone(phone){
+    if(!phone) return "";
+    phone = String(phone);
+    return "******" + phone.slice(-4);
+}
+
+/* =========================================
+   LOAD USER
+========================================= */
+function loadUser(){
+    if(currentUser && users[currentUser]){
+        document.getElementById("username").innerText = "👤 " + (users[currentUser].username || "User");
+        document.getElementById("phone").innerText = "📱 " + currentUser;
+    }
+}
+
+/* =========================================
+   CREATE TICKETS
+========================================= */
+function createTickets(){
+    const grid = document.getElementById("ticketGrid");
+    grid.innerHTML = "";
+
+    for(let i=1; i<=500; i++){
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "ticket";
+
+        /* LOCKED */
+        if(tickets[i]){
+            btn.classList.add("locked");
+            btn.disabled = true;
+            const ownerPhone = tickets[i].phone || "";
+
+            if(ownerPhone === currentUser){
+                btn.innerHTML = i + "<br><small>📱" + ownerPhone + "</small>";
+            } else {
+                btn.innerHTML = i + "<br><small>📱" + maskPhone(ownerPhone) + "</small>";
+            }
+        }
+        /* PAYMENT PENDING */
+        else {
+            const pending = Object.values(payments).some(function(p){
+                return (String(p.ticket) === String(i) && p.status === "pending");
+            });
+
+            if(pending){
+                btn.classList.add("pending");
+                btn.disabled = true;
+                btn.innerHTML = i + "<br><small>🟡 Pending</small>";
+            } 
+            /* AVAILABLE */
+            else {
+                btn.innerText = i;
+                btn.onclick = function(){
+                    selectTicket(i, btn);
+                };
+            }
+        }
+        grid.appendChild(btn);
+    }
+}
+
+/* =========================================
+   SELECT TICKET
+========================================= */
+function selectTicket(number, btn){
+    document.querySelectorAll(".ticket.selected").forEach(function(x){
+        x.classList.remove("selected");
+    });
+
+    btn.classList.add("selected");
+    selectedTicket = number;
+
+    document.getElementById("selectedInfo").innerHTML = `
+        🎫 Ticket: <strong>${number}</strong><br><br>
+        💰 Kaffaltii: <strong>50 Birr</strong><br><br>
+        Continue tuqi Payment itti fufuuf.
+    `;
+}
+
+/* =========================================
+   OPEN PAYMENT
+========================================= */
+function openPayment(){
+    if(!selectedTicket){
+        alert("❌ Dura ticket filadhu.");
+        return;
+    }
+
+    document.getElementById("paymentBox").classList.remove("hidden");
+    document.getElementById("paymentTicket").innerText = selectedTicket;
+    document.getElementById("paymentMessage").innerHTML = "";
+    document.getElementById("paymentBox").scrollIntoView({ behavior:"smooth" });
+}
+
+/* =========================================
+   CHOOSE PAYMENT
+========================================= */
+function choosePayment(method){
+    paymentMethod = method;
+
+    document.getElementById("paymentInfo").classList.remove("hidden");
+    document.getElementById("paymentMethod").innerText = "💳 " + method;
+
+    if(method === "Telebirr"){
+        document.getElementById("accountNumber").innerText = "0965706523";
+    }
+
+    if(method === "CBE"){
+        document.getElementById("accountNumber").innerText = "1000534718598";
+    }
+
+    document.getElementById("paymentInfo").scrollIntoView({ behavior:"smooth" });
+}
+
+/* =========================================
+   COPY ACCOUNT
+========================================= */
+async function copyAccount(){
+    const account = document.getElementById("accountNumber").innerText;
+
+    if(!account){
+        alert("❌ Account number hin jiru.");
+        return;
+    }
+
+    try{
+        await navigator.clipboard.writeText(account);
+        alert("✅ Account copied: " + account);
+    } catch(error){
+        alert("❌ Copy hin dandeenye. Account kana harkaan copy godhi:\n" + account);
+    }
+}
+
+/* =========================================
+   IMAGE PREVIEW
+========================================= */
+document.getElementById("screenshot").addEventListener("change", function(event){
+    const file = event.target.files[0];
+    const fileName = document.getElementById("fileName");
+    const preview = document.getElementById("preview");
+
+    if(!file){
+        fileName.innerText = "";
+        preview.src = "";
+        preview.classList.add("hidden");
+        return;
+    }
+
+    if(!file.type.startsWith("image/")){
+        alert("❌ Suuraa qofa upload godhi.");
+        event.target.value = "";
+        return;
+    }
+
+    fileName.innerText = "📎 " + file.name;
+
+    const reader = new FileReader();
+    reader.onload = function(e){
+        preview.src = e.target.result;
+        preview.classList.remove("hidden");
+    };
+    reader.readAsDataURL(file);
+});
+
+/* =========================================
+   SUBMIT PAYMENT (WITH COMPRESSION)
+========================================= */
+function submitPayment(event){
+    const submitBtn = document.getElementById("submitPaymentBtn");
+
+    try {
+        if(!selectedTicket){
+            alert("❌ Dura ticket filadhu.");
+            return;
+        }
+
+        if(!paymentMethod){
+            alert("❌ Payment method filadhu.");
+            return;
+        }
+
+        if(!currentUser || !users[currentUser]){
+            alert("❌ User hin argamne. Mee irra deebi'ii login godhi.");
+            return;
+        }
+
+        const fileInput = document.getElementById("screenshot");
+        const file = fileInput.files[0];
+
+        if(!file){
+            alert("❌ Screenshot upload godhi.");
+            return;
+        }
+
+        if(!file.type.startsWith("image/")){
+            alert("❌ Screenshot suuraa ta'uu qaba.");
+            return;
+        }
+
+        payments = JSON.parse(localStorage.getItem("payments")) || {};
+
+        const alreadyPending = Object.values(payments).some(function(p){
+            return (String(p.ticket) === String(selectedTicket) && p.status === "pending");
+        });
+
+        if(alreadyPending){
+            alert("❌ Ticket kun payment pending qaba.");
+            createTickets();
+            return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerText = "⏳ Payment ergaa jira...";
+
+        // Suuraa compress godhuu (600px, 70% quality)
+        compressImage(file, 600, 600, 0.7, function(compressedBase64){
+            try {
+                const id = Date.now().toString();
+
+                payments[id] = {
+                    id: id,
+                    ticket: selectedTicket,
+                    method: paymentMethod,
+                    phone: currentUser,
+                    username: users[currentUser].username || "",
+                    screenshot: compressedBase64,
+                    status: "pending",
+                    date: new Date().toLocaleString()
+                };
+
+                localStorage.setItem("payments", JSON.stringify(payments));
+
+                document.getElementById("paymentMessage").innerHTML = `
+                    <div class="message pending-msg">
+                        🟡 <strong>Payment ergameera!</strong><br><br>
+                        🎫 Ticket: <strong>${selectedTicket}</strong><br>
+                        💳 Method: <strong>${paymentMethod}</strong><br><br>
+                        🕐 Status: <strong>PENDING</strong><br><br>
+                        Admin mirkaneessa booda ticket LOCKED ta'a.
+                    </div>
+                `;
+
+                selectedTicket = null;
+                paymentMethod = "";
+                fileInput.value = "";
+                document.getElementById("fileName").innerText = "";
+                document.getElementById("preview").src = "";
+                document.getElementById("preview").classList.add("hidden");
+                document.getElementById("selectedInfo").innerHTML = "Ticket hin filatamne.";
+                document.getElementById("paymentInfo").classList.add("hidden");
+
+                createTickets();
+                showMyTickets();
+
+                submitBtn.disabled = false;
+                submitBtn.innerText = "📤 Submit Payment";
+
+            } catch(error) {
+                console.error("Storage Error:", error);
+                alert("❌ Storage guuteera. Mee kookii (cache) qulqulleessi.");
+                submitBtn.disabled = false;
+                submitBtn.innerText = "📤 Submit Payment";
+            }
+        });
+
+    } catch(error) {
+        console.error("Submit Error:", error);
+        alert("❌ Submit Payment irratti rakkoon uumame.");
+        submitBtn.disabled = false;
+        submitBtn.innerText = "📤 Submit Payment";
+    }
+}
+
+/* =========================================
+   MY TICKETS
+========================================= */
+function showMyTickets(){
+    const box = document.getElementById("myTickets");
+    let html = "";
+
+    /* LOCKED TICKETS */
+    Object.values(tickets).forEach(function(t){
+        if(String(t.phone) === String(currentUser)){
+            html += `
+                <div class="message success">
+                    🔒 Ticket: <strong>${t.ticket}</strong><br>
+                    📱 Phone: <strong>${t.phone}</strong><br>
+                    🟢 Status: <strong>LOCKED</strong>
+                </div>
+            `;
+        }
+    });
+
+    /* PENDING */
+    Object.values(payments).forEach(function(p){
+        if(String(p.phone) === String(currentUser) && p.status === "pending"){
+            html += `
+                <div class="message pending-msg">
+                    🟡 Ticket: <strong>${p.ticket}</strong><br>
+                    💳 Payment: <strong>${p.method}</strong><br>
+                    🟡 Status: <strong>PENDING</strong>
+                </div>
+            `;
+        }
+    });
+
+    if(html === ""){
+        html = "Carraan ati filatte hin jiru.";
+    }
+
+    box.innerHTML = html;
+}
+
+/* =========================================
+   LOGOUT
+========================================= */
+function logout(){
+    localStorage.removeItem("currentUser");
+    window.location.href = "index.html";
+}
+
+/* =========================================
+   START
+========================================= */
+if(!currentUser || !users[currentUser]){
+    window.location.href = "index.html";
+} else {
+    loadUser();
+    createTickets();
+    showMyTickets();
+}
+
+</script>
+
+</body>
+</html>

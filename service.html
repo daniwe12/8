@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="om">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services</title>
+
+    <!-- Font Awesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            min-height: 100vh;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.75)), url("1.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding-bottom: 80px; /* Space for fixed bottom menu */
+        }
+
+        /* Header */
+        .header {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ffcc;
+        }
+
+        /* Services Container */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00ffcc;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .service-card {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid #00ffcc;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+
+        .service-card:hover {
+            background: rgba(0, 255, 204, 0.1);
+            transform: translateY(-10px);
+        }
+
+        .service-card i {
+            font-size: 40px;
+            color: #00ffcc;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 10px;
+        }
+
+        /* Bottom Navigation Bar */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            border-top: 1px solid rgba(0, 255, 204, 0.3);
+            z-index: 1000;
+        }
+
+        .bottom-nav a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 12px;
+            gap: 4px;
+            transition: 0.3s;
+        }
+
+        .bottom-nav a i {
+            font-size: 20px;
+        }
+
+        .bottom-nav a.active {
+            color: #00ffcc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">MY SERVICE</div>
+    </div>
+
+    <!-- SERVICES SECTION -->
+    <div class="container">
+        <h2 class="title">Tajaajiloota Keenya</h2>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fa-solid fa-code"></i>
+                <h3>Web Development</h3>
+                <p>Marsariitii ammayyaa fi ariifachiisaa ta'e qopheessuu.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-paintbrush"></i>
+                <h3>Design & Branding</h3>
+                <p>Logo fi bifa websaayite keessanii bareechuu.</p>
+            </div>
+
+            <div class="service-card">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <h3>Mobile Apps</h3>
+                <p>Appiiwwan bilbilaa qulqullina olaanaa qaban.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <a href="index.html">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="about.html">
+            <i class="fa-solid fa-circle-info"></i>
+            <span>About</span>
+        </a>
+        <a href="blog.html">
+            <i class="fa-solid fa-newspaper"></i>
+            <span>Blog</span>
+        </a>
+        <a href="service.html" class="active">
+            <i class="fa-solid fa-concierge-bell"></i>
+            <span>Service</span>
+        </a>
+        <a href="dashboard.html">
+              <i class="fa-solid fa-user"></i>
+            <span>me</span>
+        </a>
+    </nav>
+
+</body>
+</html>
